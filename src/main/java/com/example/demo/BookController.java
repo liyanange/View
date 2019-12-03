@@ -28,14 +28,23 @@ public class BookController {
         b1.setId(1);
         b1.setAuthor("李楠");
         b1.setName("火狐撒谎");
+        List<String> list = new ArrayList<>();
+        list.add("呵呵呵");
+        list.add("嘿嘿");
+        list.add("拉拉");
+        b1.setList(list);
         books.add(b1);
         b1 = new Book();
         b1.setId(2);
         b1.setAuthor("嗯嗯嗯");
         b1.setName("但是");
+        list.add("呵呵呵");
+        list.add("嘿嘿");
+        list.add("拉拉");
+        b1.setList(list);
         books.add(b1);
         ModelAndView mv = new ModelAndView();
-        mv.addObject("books",books);
+        mv.addObject("books",b1);
         mv.setViewName("books");
         return  mv;
 

@@ -1,9 +1,12 @@
 package com.example.demo;
 
+import java.util.List;
+
 public class Book {
     private Integer id;
     private String author;
     private String name;
+    private List<String> list;
 
     public Integer getId() {
         return id;
@@ -27,5 +30,13 @@ public class Book {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<String> getList() {
+        return list;
+    }
+
+    public void setList(List<String> list) {
+        this.list = list;
     }
 }

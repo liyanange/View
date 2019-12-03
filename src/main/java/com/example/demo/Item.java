@@ -1,19 +1,21 @@
 package com.example.demo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.elasticsearch.annotations.*;
 
-@Document(indexName = "index1",type = "type1")
+import java.util.Date;
+
+@Document(indexName = "indexdate",type = "datet")
 public class Item
 {
     @Id
     private  Long id;
     @Field(type = FieldType.Keyword)
     private  String title;
-    @Field(type = FieldType.Keyword)
+     //啥都不写默认映射两个一个text分词 一个keyword不分词
     private  String categroy;
+    //text会分词建立索引 默认分词器 一个字一个字的分
     @Field(type = FieldType.Keyword)
     private  String brand;
     @Field(type = FieldType.Double)
@@ -21,7 +23,12 @@ public class Item
     //默认都会建立索引
     @Field(index = false,type = FieldType.Keyword)
     private  String images;
-
+    @Field(type = FieldType.Date, format = DateFormat.custom,pattern ="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape =JsonFormat.Shape.STRING,pattern ="yyyy-MM-dd HH:mm:ss",timezone ="GMT+8")
+    private Date publishDate;
+    @Field(type = FieldType.Date)
+    private Date createDate;
+    private Date updateDate;
     public Long getId() {
         return id;
     }
@@ -70,12 +77,52 @@ public class Item
         this.images = images;
     }
 
-    public Item(Long id, String title, String categroy, String brand, Double price, String images) {
+    public Item() {
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public Date getPublishDate() {
+        return publishDate;
+    }
+
+    public void setPublishDate(Date publishDate) {
+        this.publishDate = publishDate;
+    }
+
+    public Item(Long id, String title, String categroy, String brand, Double price, String images, Date publishDate) {
         this.id = id;
         this.title = title;
         this.categroy = categroy;
         this.brand = brand;
         this.price = price;
         this.images = images;
+        this.publishDate = publishDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", categroy='" + categroy + '\'' +
+                ", brand='" + brand + '\'' +
+                ", price=" + price +
+                ", images='" + images + '\'' +
+                '}';
     }
 }
